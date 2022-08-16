@@ -1,4 +1,7 @@
 <?php
+
+$startTime = microtime(true);
+
 require __DIR__. str_replace('/','\\','/../vendor/autoload.php');
 
 $GLOBALS['AVATAR_SRC'] = '/../../../www/img/';
@@ -43,4 +46,5 @@ try{
     $view->renderHtml('notAllow.php', ['error'=>$e->getMessage()],401);
 }
 
-
+$endTime = microtime(true);
+printf('<div style="text-align: center; padding: 5px">Время генерации страницы: %f</div>', $endTime - $startTime );

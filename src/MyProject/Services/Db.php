@@ -21,18 +21,14 @@ class Db
             );
             $this->pdo->exec('SET NAMES UTF8');
         } catch (PDOException $e) {
-            throw new DbException("Ошибка при подключении к базе данных:" . $e->getMessage());
-            
+            throw new DbException("Ошибка при подключении к базе данных:" . $e->getMessage());   
         }
-        
-        
-        
-        
-        
     }
 
     public function query(string $sql, array $params = [], string $className = 'stdClass'): ?array
     {
+        var_dump($sql);
+        echo "<br>";
         $sth = $this->pdo->prepare($sql);
         $result = $sth->execute($params);
 
