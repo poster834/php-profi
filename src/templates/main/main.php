@@ -22,13 +22,17 @@
         <tr>
             <td colspan="2">
                 <div style='text-align:center;'>
-                <?php for($pageNum = 1; $pageNum <= $pagesCount; $pageNum++):?>
-                    <?php if ($pageNum == $currentPageNum):?>
-                        <b><?= $pageNum;?></b>
-                    <?php else:?>
-                    <a href="/www/<?= $pageNum === 1 ? '' : $pageNum ?>"><?=$pageNum?></a>
-                    <?php endif;?>
-                <?php endfor;?>
+                <?php if($previousPageLink !== null):?>
+                    <a href="<?= $previousPageLink ?>">&lt; Туда</a>
+                <?php else:?> 
+                    <span style='color:grey;'>&lt; Туда</span>
+                <?php endif;?>
+                &nbsp;&nbsp;&nbsp;
+                <?php if($nextPageLink !== null):?>
+                    <a href="<?= $nextPageLink ?>">Сюда &gt;</a>
+                <?php else:?> 
+                    <span style='color:grey;'>Сюда &gt;</span>
+                <?php endif;?>
                 </div>
             </td>
         </tr>
