@@ -14,9 +14,9 @@ return [
     '~^users/logout$~' => [\MyProject\Controllers\UsersController::class, 'logout'],
     '~^users/(\d+)/activate/(.+)$~' => [\MyProject\Controllers\UsersController::class, 'activate'],
     '~^$~' => [\MyProject\Controllers\MainController::class, 'main'],
+    '~^(\d+)$~' => [\MyProject\Controllers\MainController::class, 'page'],
     '~^admin$~' => [\MyProject\Controllers\AdminController::class, 'adminBlog'],
     '~^admin/adminArticles$~' => [\MyProject\Controllers\AdminController::class, 'adminArticles'],
     '~^admin/adminComments$~' => [\MyProject\Controllers\AdminController::class, 'adminComments'],
     '~^users/profile$~' => [\MyProject\Controllers\UsersController::class, 'profile'],
-
 ];

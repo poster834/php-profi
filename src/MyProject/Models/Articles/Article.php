@@ -67,9 +67,9 @@ class Article extends ActiveRecordEntity
 
     public static function createFromArray(array $fields, User $author):Article
     {
-        if (!$author->isAdmin()) {
-            throw new ForbiddenException("Вы не администратор!");            
-        }
+        // if (!$author->isAdmin()) {
+        //     throw new ForbiddenException("Вы не администратор!");            
+        // }
         if (empty($fields['name'])) {
             throw new InvalidArgumentException("Нет названия статьи");
         }
@@ -114,6 +114,12 @@ class Article extends ActiveRecordEntity
             return true;
         }
         return false;
+    }
+
+    public function getParsedText(int $n=0): string
+    {
+        $parser = new \Parsedown();
+        return $parser->text($this->getText($n));
     }
 
 }

@@ -1,18 +1,12 @@
 <?php
+require __DIR__. str_replace('/','\\','/../vendor/autoload.php');
+
 $GLOBALS['AVATAR_SRC'] = '/../../../www/img/';
 
-function myAutoLoader(string $className) {
-    require_once __DIR__ . str_replace('/','\\','/../src/'.$className.'.php');
-}
-
 try{
-    spl_autoload_register('myAutoLoader');
-
     $routes = require __DIR__ . str_replace('/','\\','/../src/routes.php');
-    
 
     $route = $_GET['route'] ?? '';
-        
     $isRouteFound = false;
 
     foreach ($routes as $pattern => $controllerAndAction) {

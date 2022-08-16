@@ -4,7 +4,7 @@ use MyProject\Models\Users\UsersAuthService;
 <?php include('../src/templates/header.php');?>
 <br><a href="/www">Главная</a><br>
     <h2><?=$article->getName();?></h2>
-    <p style="line-height:2;"><?=$article->getText();?></p>
+    <p style="line-height:2;"><?=$article->getParsedText();?></p>
     <p>Автор: <?=$article->getAuthor()->getNickname();?></p>
     <br>
     <?php if($article->isEdditable()):?>

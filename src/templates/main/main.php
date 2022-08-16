@@ -6,7 +6,7 @@
                 Мой блог
             </td>
             <td>
-                <a href="articles/add">   Добавить статью</a>
+                <a href="articles/add"> Добавить статью</a>
             </td>
         </tr>
         
@@ -14,10 +14,22 @@
         <tr>
             <td colspan="2">
                 <h2><a href="articles/<?=$article->getId();?>"><?=$article->getName();?></a></h2>
-                <p><?=$article->getText(300);?></p>
+                <p><?=$article->getParsedText(300);?></p>
 
             </td>
         </tr>
         <?php endforeach;?>
-        
+        <tr>
+            <td colspan="2">
+                <div style='text-align:center;'>
+                <?php for($pageNum = 1; $pageNum <= $pagesCount; $pageNum++):?>
+                    <?php if ($pageNum == $currentPageNum):?>
+                        <b><?= $pageNum;?></b>
+                    <?php else:?>
+                    <a href="/www/<?= $pageNum === 1 ? '' : $pageNum ?>"><?=$pageNum?></a>
+                    <?php endif;?>
+                <?php endfor;?>
+                </div>
+            </td>
+        </tr>
         <?php include('../src/templates/footer.php');?>

@@ -2,7 +2,7 @@
 namespace MyProject\Models;
 use MyProject\Services\Db;
 
-abstract class ActiveRecordEntity
+abstract class ActiveRecordEntity implements \JsonSerializable
 {
     protected $id;
 
@@ -139,5 +139,30 @@ abstract class ActiveRecordEntity
 
     abstract protected static function getTableName():string;
 
+    public function jsonSerialize()
+    {
+        return $this->mapPropertiesToDbFormat();
+    }
 
+    public static function getPagesCount(int $itemsPerPage):int
+    {
+        $db = Db::getInstances();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM '.static::getTableName().';');
+        return ceil($result[0]->cnt / $itemsPerPage);
+    }
+
+    public static function getPage(int $pageNum, int $itemsPerPage):array
+    {
+        $db = Db::getInstances();
+        return $db->query(
+            sprintf(
+                'SELECT * FROM `%s` ORDER BY id DESC LIMIT %d OFFSET %d;',
+                static::getTableName(), 
+                $itemsPerPage,
+                ($pageNum - 1)*$itemsPerPage
+            ),
+            [], 
+            static::class
+        );
+    }
 }
