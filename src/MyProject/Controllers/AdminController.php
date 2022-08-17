@@ -29,12 +29,18 @@ class AdminController extends AbstractController
         }
     }
 
-    public function adminArticles()
+    public function adminArticles(int $pageNum = 1)
     {
         $user = UsersAuthService::getUserByToken();
         if ($user->isAdmin()) {
-            $articles = Article::findAll();
-            $this->view->renderHtml('admin/adminArticles.php',['articles' => $articles]);
+
+
+            $pageCount = Article::getPagesCount(5);
+            $this->view->renderHtml('admin/adminArticles.php',[
+                'articles' => Article::getPage($pageNum, 5),
+                'previousPageLink' => $pageNum > 1 ? '/www/admin/adminArticles/'. ($pageNum-1) : null,
+                'nextPageLink' => $pageNum < $pageCount ? '/www/admin/adminArticles/'. ($pageNum + 1) : null,
+            ]);
         } else {
             throw new ForbiddenException();
         }
